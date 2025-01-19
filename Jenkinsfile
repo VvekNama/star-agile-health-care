@@ -2,7 +2,7 @@ pipeline {
     agent any
     
 environment {
-        DOCKERHUB_CREDENTIALS = credentials('dockerhub-pat') 
+        DOCKERHUB_CREDENTIALS = credentials('Docker-Token') 
         DOCKER_IMAGE_NAME = 'medicure:latest'
         DOCKERHUB_REPO = 'vvek24/medicure'
        // K8S_TOKEN = credentials('k8s-token')
@@ -18,7 +18,7 @@ environment {
                  steps {
                 git(
                     url: 'https://github.com/VvekNama/star-agile-health-care', branch: 'master',
-                    credentialsId: 'github-token'
+                    credentialsId: 'Github-Token'
                 )
             
                 
