@@ -53,18 +53,18 @@ environment {
             }
         }
         
-        // stage('Push Docker Image') {
-        //     steps {
-        //         sh """
-        //             echo ${DOCKERHUB_CREDENTIALS_PSW} | docker login -u ${DOCKERHUB_CREDENTIALS_USR} --password-stdin
-        //             docker tag ${DOCKER_IMAGE_NAME} ${DOCKERHUB_REPO}
-        //             docker push ${DOCKERHUB_REPO}
-        //         """
+        stage('Push Docker Image') {
+            steps {
+                sh """
+                    echo ${DOCKERHUB_CREDENTIALS_PSW} | docker login -u ${DOCKERHUB_CREDENTIALS_USR} --password-stdin
+                    docker tag ${DOCKER_IMAGE_NAME} ${DOCKERHUB_REPO}
+                    docker push ${DOCKERHUB_REPO}
+                """
                 
-        //         sh 'docker tag medicure:latest docker.io/vvek24/medicure:latest'
-        //         sh 'docker push docker.io/vvek24/medicure:latest'
-        //     }
-        // }
+                sh 'docker tag medicure:latest docker.io/vvek24/medicure:latest'
+                sh 'docker push docker.io/vvek24/medicure:latest'
+            }
+        }
 
 
         //  stage('Run Docker Container') {
