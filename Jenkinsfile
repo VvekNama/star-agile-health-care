@@ -25,21 +25,21 @@ environment {
             }
         }
         
-        // stage('Remove Existing Container') {
-        //     steps {
-        //         script {
-        //             // Check if the container exists, then remove it
-        //             def containerExists = sh(script: "docker ps -a -q --filter name=${CONTAINER_NAME}", returnStdout: true).trim()
-        //             if (containerExists) {
-        //                 echo "Container ${CONTAINER_NAME} exists, removing it."
-        //                 sh "docker stop ${CONTAINER_NAME}"
-        //                 sh "docker rm ${CONTAINER_NAME}"
-        //             } else {
-        //                 echo "No existing container to remove."
-        //             }
-        //         }
-        //     }
-        // }
+        stage('Remove Existing Container') {
+            steps {
+                script {
+                    // Check if the container exists, then remove it
+                    def containerExists = sh(script: "docker ps -a -q --filter name=${CONTAINER_NAME}", returnStdout: true).trim()
+                    if (containerExists) {
+                        echo "Container ${CONTAINER_NAME} exists, removing it."
+                        sh "docker stop ${CONTAINER_NAME}"
+                        sh "docker rm ${CONTAINER_NAME}"
+                    } else {
+                        echo "No existing container to remove."
+                    }
+                }
+            }
+        }
 
         
         stage('Build') {
