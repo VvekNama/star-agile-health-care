@@ -8,7 +8,7 @@ environment {
        // K8S_TOKEN = credentials('k8s-token')
        //  KUBECONFIG = credentials('k8s-token')
        // KUBECONFIG = credentials('k8s-token') 
-        // CONTAINER_NAME = "medicure-container"  
+        CONTAINER_NAME = "medicure-container"  
     
         }
     
