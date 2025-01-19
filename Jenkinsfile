@@ -1,16 +1,16 @@
 pipeline {
     agent any
     
-environment {
-       // DOCKERHUB_CREDENTIALS = credentials('Docker-Token') 
-        //DOCKER_IMAGE_NAME = 'medicure:latest'
-        //DOCKERHUB_REPO = 'vvek24/medicure'
-       // K8S_TOKEN = credentials('k8s-token')
-        // KUBECONFIG = credentials('k8s-token')
-       // KUBECONFIG = credentials('k8s-token') 
-        // CONTAINER_NAME = "medicure-container"  
+// environment {
+//        DOCKERHUB_CREDENTIALS = credentials('Docker-Token') 
+//         DOCKER_IMAGE_NAME = 'medicure:latest'
+//         DOCKERHUB_REPO = 'vvek24/medicure'
+//        K8S_TOKEN = credentials('k8s-token')
+//         KUBECONFIG = credentials('k8s-token')
+//        KUBECONFIG = credentials('k8s-token') 
+//         CONTAINER_NAME = "medicure-container"  
     
-        }
+//         }
     
     stages {
         stage('Clone Repository') {
