@@ -67,31 +67,31 @@ environment {
         }
 
 
-        //  stage('Run Docker Container') {
-        //     steps {
-        //         script {
-        //             // Run the container in detached mode
-        //             sh """
-        //                 docker run -d --name ${CONTAINER_NAME} -p 8081:8081 ${DOCKER_IMAGE_NAME}
-        //             """
-        //         }
-        //     }
-        // }
-        
-        stage('Deploy to Kubernetes') {
+         stage('Run Docker Container') {
             steps {
-
-             // script {
-             //        // Decode kubeconfig and apply deployment
-             //        sh '''#!/bin/bash
-             //        echo "$KUBECONFIG" | base64 -d > /tmp/kubeconfig
-             //        kubectl --kubeconfig=/tmp/kubeconfig apply -f k8s/deployment.yml --validate=false
-             //        '''
-             //    }
-                
-                sh 'kubectl apply -f k8s/deployment.yml --validate=false'
-                sh 'kubectl apply -f k8s/service.yml --validate=false'
+                script {
+                    // Run the container in detached mode
+                    sh """
+                        docker run -d --name ${CONTAINER_NAME} -p 8081:8081 ${DOCKER_IMAGE_NAME}
+                    """
+                }
             }
         }
+        
+        // stage('Deploy to Kubernetes') {
+        //     steps {
+
+        //      // script {
+        //      //        // Decode kubeconfig and apply deployment
+        //      //        sh '''#!/bin/bash
+        //      //        echo "$KUBECONFIG" | base64 -d > /tmp/kubeconfig
+        //      //        kubectl --kubeconfig=/tmp/kubeconfig apply -f k8s/deployment.yml --validate=false
+        //      //        '''
+        //      //    }
+                
+        //         sh 'kubectl apply -f k8s/deployment.yml --validate=false'
+        //         sh 'kubectl apply -f k8s/service.yml --validate=false'
+        //     }
+        // }
      }
 }
