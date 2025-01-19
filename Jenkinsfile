@@ -5,10 +5,10 @@ environment {
        DOCKERHUB_CREDENTIALS = credentials('Docker-Token') 
         DOCKER_IMAGE_NAME = 'medicure:latest'
         DOCKERHUB_REPO = 'vvek24/medicure'
-       // K8S_TOKEN = credentials('k8s-token')
-       //  KUBECONFIG = credentials('k8s-token')
-       // KUBECONFIG = credentials('k8s-token') 
-       //  CONTAINER_NAME = "medicure-container"  
+       K8S_TOKEN = credentials('k8s-token')
+        KUBECONFIG = credentials('k8s-token')
+       KUBECONFIG = credentials('k8s-token') 
+        CONTAINER_NAME = "medicure-container"  
     
         }
     
@@ -78,16 +78,16 @@ environment {
         //     }
         // }
         
-        // stage('Deploy to Kubernetes') {
-        //     steps {
+        stage('Deploy to Kubernetes') {
+            steps {
 
-        //      script {
-        //             // Decode kubeconfig and apply deployment
-        //             sh '''#!/bin/bash
-        //             echo "$KUBECONFIG" | base64 -d > /tmp/kubeconfig
-        //             kubectl --kubeconfig=/tmp/kubeconfig apply -f k8s/deployment.yml --validate=false
-        //             '''
-        //         }
+             script {
+                    // Decode kubeconfig and apply deployment
+                    sh '''#!/bin/bash
+                    echo "$KUBECONFIG" | base64 -d > /tmp/kubeconfig
+                    kubectl --kubeconfig=/tmp/kubeconfig apply -f k8s/deployment.yml --validate=false
+                    '''
+                }
                 
         //         // sh 'kubectl apply -f k8s/deployment.yml --validate=false'
         //         // sh 'kubectl apply -f k8s/service.yml --validate=false'
