@@ -3,24 +3,21 @@ pipeline {
     
 environment {
         DOCKERHUB_CREDENTIALS = credentials('dockerhub-pat') 
-        DOCKER_IMAGE_NAME = 'bankfinance:latest'
-        DOCKERHUB_REPO = 'vvek24/bankfinance'
+        DOCKER_IMAGE_NAME = 'medicure:latest'
+        DOCKERHUB_REPO = 'vvek24/medicure'
        // K8S_TOKEN = credentials('k8s-token')
         // KUBECONFIG = credentials('k8s-token')
         KUBECONFIG = credentials('k8s-token') 
-        CONTAINER_NAME = "finance-container"  
+        CONTAINER_NAME = "medicure-container"  
     
         }
     
     stages {
         stage('Clone Repository') {
-            // steps {
-            //     git url: 'https://github.com/VvekNama/star-agile-banking-finance', branch: 'master'
-            //     credentialsId: 'github-token'
-
+        
                  steps {
                 git(
-                    url: 'https://github.com/VvekNama/star-agile-banking-finance', branch: 'master',
+                    url: 'https://github.com/VvekNama/star-agile-health-care', branch: 'master',
                     credentialsId: 'github-token'
                 )
             
@@ -28,21 +25,21 @@ environment {
             }
         }
         
-        stage('Remove Existing Container') {
-            steps {
-                script {
-                    // Check if the container exists, then remove it
-                    def containerExists = sh(script: "docker ps -a -q --filter name=${CONTAINER_NAME}", returnStdout: true).trim()
-                    if (containerExists) {
-                        echo "Container ${CONTAINER_NAME} exists, removing it."
-                        sh "docker stop ${CONTAINER_NAME}"
-                        sh "docker rm ${CONTAINER_NAME}"
-                    } else {
-                        echo "No existing container to remove."
-                    }
-                }
-            }
-        }
+        // stage('Remove Existing Container') {
+        //     steps {
+        //         script {
+        //             // Check if the container exists, then remove it
+        //             def containerExists = sh(script: "docker ps -a -q --filter name=${CONTAINER_NAME}", returnStdout: true).trim()
+        //             if (containerExists) {
+        //                 echo "Container ${CONTAINER_NAME} exists, removing it."
+        //                 sh "docker stop ${CONTAINER_NAME}"
+        //                 sh "docker rm ${CONTAINER_NAME}"
+        //             } else {
+        //                 echo "No existing container to remove."
+        //             }
+        //         }
+        //     }
+        // }
 
         
         stage('Build') {
@@ -52,34 +49,34 @@ environment {
         }
         stage('Dockerize') {
             steps {
-                sh 'docker build -t bankfinance:latest .'
+                sh 'docker build -t medicure:latest .'
             }
         }
         
-        stage('Push Docker Image') {
-            steps {
-                sh """
-                    echo ${DOCKERHUB_CREDENTIALS_PSW} | docker login -u ${DOCKERHUB_CREDENTIALS_USR} --password-stdin
-                    docker tag ${DOCKER_IMAGE_NAME} ${DOCKERHUB_REPO}
-                    docker push ${DOCKERHUB_REPO}
-                """
+        // stage('Push Docker Image') {
+        //     steps {
+        //         sh """
+        //             echo ${DOCKERHUB_CREDENTIALS_PSW} | docker login -u ${DOCKERHUB_CREDENTIALS_USR} --password-stdin
+        //             docker tag ${DOCKER_IMAGE_NAME} ${DOCKERHUB_REPO}
+        //             docker push ${DOCKERHUB_REPO}
+        //         """
                 
-                sh 'docker tag bankfinance:latest docker.io/vvek24/bankfinance:latest'
-                sh 'docker push docker.io/vvek24/bankfinance:latest'
-            }
-        }
+        //         sh 'docker tag medicure:latest docker.io/vvek24/medicure:latest'
+        //         sh 'docker push docker.io/vvek24/medicure:latest'
+        //     }
+        // }
 
 
-         stage('Run Docker Container') {
-            steps {
-                script {
-                    // Run the container in detached mode
-                    sh """
-                        docker run -d --name ${CONTAINER_NAME} -p 8081:8081 ${DOCKER_IMAGE_NAME}
-                    """
-                }
-            }
-        }
+        //  stage('Run Docker Container') {
+        //     steps {
+        //         script {
+        //             // Run the container in detached mode
+        //             sh """
+        //                 docker run -d --name ${CONTAINER_NAME} -p 8081:8081 ${DOCKER_IMAGE_NAME}
+        //             """
+        //         }
+        //     }
+        // }
         
         // stage('Deploy to Kubernetes') {
         //     steps {
