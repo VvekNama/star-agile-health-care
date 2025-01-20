@@ -72,7 +72,7 @@ environment {
                 script {
                     // Run the container in detached mode
                     sh """
-                        docker run -d --name ${CONTAINER_NAME} -p 8081:8081 ${DOCKER_IMAGE_NAME}
+                        docker run -d --name ${CONTAINER_NAME} -p 8081:8082 ${DOCKER_IMAGE_NAME}
                     """
                 }
             }
